@@ -9,9 +9,9 @@
 
 
 
-[ind]: https://github.com/acruzr2021/robotica_servicios/blob/main/README.md#indice
-[wel]: https://github.com/acruzr2021/robotica_servicios/blob/main/README.md#welcome
-[p1]: https://github.com/acruzr2021/robotica_servicios/blob/main/README.md#basic-vacuum-cleaner
+[ind]: (#Indice)
+[wel]: (#Welcome)
+[p1]:  (#Localized Vacuum Cleaner)
 
 
 
