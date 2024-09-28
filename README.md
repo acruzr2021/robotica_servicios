@@ -35,3 +35,8 @@ Join me to discover the exciting world of robotics and the discipline of *Mobile
 
 
 [Screencast from 2024-09-28 13-18-36.webm](https://github.com/user-attachments/assets/b67f48ed-97cc-4b55-9527-ac925d1b35a4)
+
+Mapa casillas ocupación:
+
+![image](https://github.com/user-attachments/assets/266f2d7c-a1df-4df7-b5ce-5ce99d22421b)
+
