@@ -40,3 +40,9 @@ Mapa casillas ocupación:
 
 ![image](https://github.com/user-attachments/assets/266f2d7c-a1df-4df7-b5ce-5ce99d22421b)
 
+Algoritmo BSA:
+
+[Screencast from 2024-10-08 12-39-21.webm](https://github.com/user-attachments/assets/65d9e660-811a-406a-b5b7-e3449957d706)
+
+
+
