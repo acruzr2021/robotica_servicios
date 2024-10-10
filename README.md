@@ -29,10 +29,30 @@ Esta práctica trata de limpiar la mayor superficie posible de suelo en el menor
 
 ## Registro
 
+Primero, decidí el tamaño de cuadrículas que quería. Para ello, medí el robot y decidí que las cuadrículas debían de ser de 15x15 para que no se dejase trozos sin limpiar ni pasara muchas veces por el mismo sitio. 
+
 ![image](https://github.com/user-attachments/assets/973843da-028e-4cd1-8df4-f35962201f12)
+
+El tamaño de estas cuadrículas cambia más adelante por 33x33 debido a que el nuevo mapa de unibotics tiene otras proporciones y era el ajuste más óptimo. 
+
+Para el registro del mapa en píxeles he cogido varios puntos de gazebo a pixeles y mediante regla de 3 obtuve una escala. Para la matriz de transformación de 3D a 2D saqué el ángulo de rotación que es de -90º y tenemos una translación de 4.06 y 5.38 metros, quedando la matriz:
+
+<div align="center">
+
+| 0 | 1 | 0 | 4.06 |
+|---|---|---|---|
+| -1 | 0 | 0 | 5.38 |
+| 0 | 0 | 1 |  0  |
+| 0 | 0 | 0 |  1  |
+
+</div>
+
+Luego para comprobar que las posiciones tuvieran coherencia en el mapa, desplacé el robot en los cuatro cuadrantes que hay respecto al eje de gazebo y dibujé su posición en las cuadrículas. En el siguiente vídeo podemos ver como los puntos en el mapa se corresponden a las posiciones en el mundo de gazebo, comprobando así que los cálculos anteriores son correctos.
 
 
 [Screencast from 2024-09-28 13-18-36.webm](https://github.com/user-attachments/assets/b67f48ed-97cc-4b55-9527-ac925d1b35a4)
+
+Para terminar con el registro, diseñé otra matriz, donde cada celda abarca 15x15 píxeles y pintamos si esa casilla está ocupada, ha sido visitada o no. En este momento dibujé por la cuadrículas por las que iba pasando el robot.
 
 Mapa casillas ocupación:
 
