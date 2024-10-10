@@ -87,16 +87,27 @@ Aquí dejo un vídeo de como planifica la trayectoria en el mapa de celdillas 15
 
 [Screencast from 2024-10-08 12-39-21.webm](https://github.com/user-attachments/assets/65d9e660-811a-406a-b5b7-e3449957d706)
 
+# Navegación
+
+Para la navegación he implementado dos controladores proporcionales, uno para el movimiento lineal y otro para el angular. He mirado el error lineal mediante la fórmula de la distancia euclídea y la angular mediante la arcotangente de la diferencia de la posición x y la posición de y. Luego he normalizado el ángulo en [-pi, pi]
+
+Si el error lineal era menor a un umbral establecido, se considera que ya está en la celdilla y pasa al siguiente punto, si el error angular es muy grande, se anula el movimiento angular y mediante el controlador angular se orienta hacia el ángulo target. En cualquier otro caso, los dos controladores comandan velocidades.
+
 
 # Ejecución
 
-Resultado final:
+ Aquí dejo una foto del resultado de la ejecución:
 
 ![image](https://github.com/user-attachments/assets/88b67edd-1988-4471-89b4-68a2577ad65f)
 
+Y un vídeo de la ejecución completa:
 
 [![image](https://github.com/user-attachments/assets/7d48b5fe-d7f3-47e7-8b7e-525f7a901a2a)](https://youtu.be/X2KAd5Se6oM?si=4t_PIoZ0DBObWS2y)
 
+
+# Observaciones
+
+Al principio intenté fusionar la planificación y la navegación, pero es mucho más complicado de depurar y, una vez implementado las dos partes por separado, considero que esta última solución es más robusta.
 
 
 
