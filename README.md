@@ -1,6 +1,4 @@
-# robotica_servicios
-
-# ROBÓTICA MÓVIL
+# ROBÓTICA DE SERVICIOS
 
 # Indice
 * [Indice][ind]
@@ -11,9 +9,7 @@
 
 [ind]: (#Indice)
 [wel]: (#Welcome)
-[p1]:  (#Localized Vacuum Cleaner)
-
-
+[p1]:  (#Localized-Vacuum-Cleaner)
 
 ---
 
