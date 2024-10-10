@@ -94,7 +94,10 @@ Resultado final:
 
 ![image](https://github.com/user-attachments/assets/88b67edd-1988-4471-89b4-68a2577ad65f)
 
-[Screencast from 2024-10-10 17-16-00.webm](https://github.com/user-attachments/assets/8f56e1c7-4f1f-4cdf-952a-f5425e07ad69)
+
+[![image](https://github.com/user-attachments/assets/7d48b5fe-d7f3-47e7-8b7e-525f7a901a2a)](https://youtu.be/X2KAd5Se6oM?si=4t_PIoZ0DBObWS2y)
+
+
 
 
 
