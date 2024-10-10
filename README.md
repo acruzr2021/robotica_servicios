@@ -8,7 +8,7 @@
 
 
 [ind]: (#Indice)
-[wel]: (#Welcome)
+[wel]: (#welcome)
 [p1]:  (#Localized-Vacuum-Cleaner)
 
 ---
