@@ -68,7 +68,22 @@ Aquí se muestra el mapa con las casillas:
 
 # Planificación
 
-Algoritmo BSA:
+Para empezar, registramos todas las casillas blancas como puntos de retorno, evitando así que nos podamos dejar algún sitio sin visitar.
+Para la planificación usamos el algoritmo BSA, basándonos en las condiciones expuestas en el paper expuesto en clase: 
+
+![image](https://github.com/user-attachments/assets/1c2b3628-dab6-48bc-aac9-98e4547f72ca)
+
+Fijamos la posición inicial en WEST y vamos rotando en dirección a las agujas del reloj:
+
+![image](https://github.com/user-attachments/assets/90ad7dca-f319-4863-b33a-a716910bc8c6)
+
+Primero miramos si está rodeado de casillas ocupadasd, si es así, buscamos un punto de retorno mediante una heurística que evalua el mejor punto al que ir desde nuestra posición teniendo en cuenta la distancia al punto y los puntos intermedios encontrados mediante BFS.
+Si no está encerrado, miramos si en la dirección principal hay algún obstáculo, si no es así seguimos hacia delante, si es así, rotamos a la siguiente dirección en el orden anterior de preferencia. 
+Por último, si no estamos en ninguno de los tres casos, seguimos hacia delante.
+
+Durante este algoritmo, cada punto que necesita un cambio de dirección, sitios donde se queda encerrado y caminos para ir a puntos de retorno son guardados en una lista de posiciones a las que navegar para facilitar el trabajo en la fase de navegación.
+
+Aquí dejo un vídeo de como planifica la trayectoria en el mapa de celdillas 15x15
 
 [Screencast from 2024-10-08 12-39-21.webm](https://github.com/user-attachments/assets/65d9e660-811a-406a-b5b7-e3449957d706)
 
