@@ -7,9 +7,9 @@
 
 
 
-[ind]: (#Indice)
-[wel]: (#welcome)
-[p1]:  (#Localized-Vacuum-Cleaner)
+[ind]: ([#Indice](https://github.com/acruzr2021/robotica_servicios/blob/main/README.md#indice))
+[wel]: (https://github.com/acruzr2021/robotica_servicios/blob/main/README.md#welcome)
+[p1]:  (https://github.com/acruzr2021/robotica_servicios/blob/main/README.md#localized-vacuum-cleaner)
 
 ---
 
