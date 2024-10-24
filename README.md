@@ -130,15 +130,50 @@ Pasamos las coordenadas a UTM mediante la siguiente página obteniendo:
 
 ![image](https://github.com/user-attachments/assets/0d8de4bc-ab33-4a65-b33e-da584c4667b7)
 
-Restando obtenemos que nuestras coordenadas target en el mundo gazebo son (40, -30)
+Restando obtenemos que nuestras coordenadas target en el mundo gazebo son (40, -30).
 
-Para imprimir la posición de cada persona, he usado la posición en utm del punto origen o base y le he sumado la posición en gazebo, y mediante la función ....., he conseguido la latitud y longitud de la posición en la que la ha encontrado 
+Para imprimir la posición de cada persona, he usado la posición en utm del punto origen o base y le he sumado la posición en el mundo simulado, y mediante la función utm.to_latlon(), he conseguido la latitud y longitud de la posición en la que la ha encontrado.
 
 ## Algoritmo de barrido
 
-Para la navegación en búsqueda de las personas a rescatar, he implementado una espiral para poder visualizar el área alrededor de la posición que nos es facilitada. Se inicializa un entero a 0, y se va incrementando en 2 unidades cada vez que se llega a una posición target. Este entero se incrementa o decrementa de forma secuencial a la coordinada x o y target anterior, alternamente, permitiendo recorrer el área de alrededor del punto inicial.
+Para optimizar la búsqueda de personas en áreas de rescate, he implementado un algoritmo de barrido en espiral que permite cubrir de manera eficiente el área alrededor de una posición inicial conocida. El objetivo es realizar un patrón de exploración que permita maximizar la cobertura del terreno, asegurando que se inspeccionen todos los puntos cercanos.
+
+El algoritmo comienza en una posición inicial y luego se mueve secuencialmente en un patrón en espiral alrededor de ese punto. Para lograr esto:
+
+* Iniciamos un valor de desplazamiento (number) en 0. Este valor se incrementa de forma progresiva para generar el crecimiento de la espiral.
+
+* El valor de la posición se alterna entre desplazamientos en las coordenadas x e y, aumentando o disminuyendo según la dirección en la que se mueve el sistema. Esto asegura que el área alrededor de la posición inicial se cubra de manera sistemática.
+
+* Cada cuatro movimientos (un ciclo completo de la espiral en las direcciones x+, y+, x-, y-), se incrementa el tamaño del paso en 2.5 unidades, ampliando así el radio de la espiral y permitiendo la exploración de áreas más lejanas.
+
+## Detección de Caras
+
+Para la detección de caras decidí analizar la imagen únicamente si alguno de los píxeles fuera muy diferente al resto. He analizado la imagen usando la función de opencv2 cv.CascadeClassifier. Para la correcta detección tuve que ajustar los parámetros scaleFactor, minSize y maxSize.
+
+Estos son mis valores para una altura de 1.5:
+
+```python
+faces = face_cascade.detectMultiScale(
+        frame_gray,
+        scaleFactor=1.1,      
+        minSize=(35,35),
+        maxSize=(80,80), 
+    )
+
+```
+
+Uno de los problemas que enfrenté fue la limitada capacidad del detector para reconocer rostros que no estén perfectamente alineados (es decir, en posición vertical u horizontal). Para solucionar esto, implementé un proceso de rotación incremental: cada vez que un frame no sea predominantemente "agua" (es decir, que contenga algo más significativo), lo roto en incrementos de 10 grados, hasta un total de 35 veces, buscando detectar rostros desde distintos ángulos.
+
+Si se detecta una cara, compruebo si hay alguna en la lista de posiciones donde he encontrado cara, de estar vacía, añado la posición donde se capturó el frame. Si no, recorro la lista de posiciones y compruebo cual es la distancia euclídea mínima, de ser mayor a un umbral impuesto, considero que es una persona diferente. Si la distancia es menor al umbral y el tiempo de la última detencción es mayor a una constante, considero que estoy volviendo a visualizar a la persona más cercana y modifico la posición guardada. 
+
+## Batería baja
+
+Una vez pasados 8 minutos del despegue, consideramos que hemos agotado la batería y nos queda lo justo para volver a base, por lo cual, comando al drone a ir a la posición (0,0,1), y una vez llega a esa posición, este comienza el aterrizaje.
+
 
 ## Ejecución
+
+Aquí dejo un vídeo del resultado final:
 
 [Screencast from 2024-10-24 19-09-23.webm](https://github.com/user-attachments/assets/99f5937e-af04-4daf-a31e-8655d2515c30)
 
