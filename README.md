@@ -4,6 +4,7 @@
 * [Indice][ind]
 * [Welcome][wel]
 * [Localized Vacuum Cleaner][p1]
+* [Rescue Person](#Rescue-Person)
 
 
 
