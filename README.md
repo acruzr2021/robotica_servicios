@@ -136,4 +136,5 @@ Para imprimir la posición de cada persona, he usado la posición en utm del pun
 
 ## Algoritmo de barrido
 
+Para la navegación en búsqueda de las personas a rescatar, he implementado una espiral para poder visualizar el área alrededor de la posición que nos es facilitada. Se inicializa un entero a 0, y se va incrementando en 2 unidades cada vez que se llega a una posición target. Este entero se incrementa o decrementa de forma secuencial a la coordinada x o y target anterior, alternamente, permitiendo recorrer el área de alrededor del punto inicial.
 
