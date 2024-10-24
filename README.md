@@ -111,7 +111,13 @@ Al principio intenté fusionar la planificación y la navegación, pero es mucho
 
 
 
-# RESCUE PEOPLE
+# Rescue people
+
+Esta práctica se enfoca en la localización de personas en el mar para llevar a cabo rescates, utilizando drones como herramienta principal. Disponemos de las coordenadas en GPS del barco y de la zona donde están las víctimas y mediante el uso de una cámara, debemos detectar sus caras.
+
+## Cambios de coordenadas
+
+Se nos proporcionan la posición del barco y la de las personas en coordenadas GPS. Para poder ubicarnos en el mapa de gazebo, pasamos estas coordenadas 
 
 ![image](https://github.com/user-attachments/assets/577261ab-04cd-48dd-9749-7bc9d2225fc8)
 
