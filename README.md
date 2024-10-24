@@ -175,6 +175,6 @@ Una vez pasados 8 minutos del despegue, consideramos que hemos agotado la bater�
 
 Aquí dejo un vídeo del resultado final:
 
-[Screencast from 2024-10-24 19-09-23.webm](https://github.com/user-attachments/assets/99f5937e-af04-4daf-a31e-8655d2515c30)
+[![image](https://github.com/user-attachments/assets/bbe26884-b7a4-4321-884e-ce01a3edfc0a)](https://www.youtube.com/watch?v=JgU8OZh0u5E)
 
 
