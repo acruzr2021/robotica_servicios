@@ -4,7 +4,7 @@
 * [Indice][ind]
 * [Welcome][wel]
 * [Localized Vacuum Cleaner][p1]
-* [Rescue Person](#Rescue-Person)
+* [Rescue People](#Rescue-people)
 
 
 
@@ -118,12 +118,22 @@ Esta práctica se enfoca en la localización de personas en el mar para llevar a
 
 ## Cambios de coordenadas
 
-Se nos proporcionan la posición del barco y la de las personas en coordenadas GPS. Para poder ubicarnos en el mapa de gazebo, pasamos estas coordenadas 
+Se nos proporcionan la posición del barco y la de las personas en coordenadas GPS. Para poder ubicarnos en el mapa de gazebo, pasamos estas coordenadas al sistema UTM, el cual nos permite, mediante la diferencia de la posición target a nuestra posición de inicio, hallar la posición en el mundo de gazebo, ya que nuestra posición inicio es el origen del eje de coordinadas del mundo.
 
+Pasamos las coordenadas a UTM mediante la siguiente página obteniendo:
+
+* Posición origen:
+  
 ![image](https://github.com/user-attachments/assets/577261ab-04cd-48dd-9749-7bc9d2225fc8)
+
+* Posición de las víctimas:
 
 ![image](https://github.com/user-attachments/assets/0d8de4bc-ab33-4a65-b33e-da584c4667b7)
 
+Restando obtenemos que nuestras coordenadas target en el mundo gazebo son (40, -30)
 
+Para imprimir la posición de cada persona, he usado la posición en utm del punto origen o base y le he sumado la posición en gazebo, y mediante la función ....., he conseguido la latitud y longitud de la posición en la que la ha encontrado 
+
+## Algoritmo de barrido
 
 
