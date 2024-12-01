@@ -297,4 +297,8 @@ Para controlar el movimiento del robot, se implementan dos controladores proporc
 
 Este enfoque permite que el robot siga una ruta de manera efectiva, ajustándose dinámicamente a las variaciones de su entorno mientras minimiza el error de posición y orientación a lo largo del camino.
 
+## Resultado final
+
+
+
 
