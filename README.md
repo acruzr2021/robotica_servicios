@@ -5,6 +5,8 @@
 * [Welcome][wel]
 * [Localized Vacuum Cleaner][p1]
 * [Rescue People](#Rescue-people)
+* [P3]
+* [Amazon Warehouse](#Amazon-warehouse)
 
 
 
@@ -177,4 +179,112 @@ Aquí dejo un vídeo del resultado final:
 
 [![image](https://github.com/user-attachments/assets/bbe26884-b7a4-4321-884e-ce01a3edfc0a)](https://www.youtube.com/watch?v=JgU8OZh0u5E)
 
+
+# P3
+
+# Amazon Warehouse
+
+El propósito de esta práctica es desarrollar la lógica de un robot logístico que permita realizar tareas esenciales dentro de un almacén automatizado. El robot deberá desplazarse hasta un estante específico, levantarlo, y transportarlo de manera eficiente hacia un punto objetivo en el mapa. Para lograrlo, cuenta con un mapa del entorno y es capaz de autolocalizarse con precisión en él. Este proyecto se divide en tres etapas principales: planificar el trayecto inicial hacia el estante, navegar hasta el destino siguiendo la trayectoria planeada, y finalmente planificar y ejecutar el trayecto de regreso con el estante en su poder.
+
+## Plan de ida
+
+### Transformación de coordenadas del simulador al mapa
+
+La primera etapa del proyecto consiste en planificar la trayectoria que llevará al robot desde su posición inicial hasta el punto donde se encuentra el estante. Esta planificación requiere una comprensión precisa de cómo transformar las coordenadas del simulador, que utiliza un sistema tridimensional, al sistema de coordenadas bidimensional del mapa.
+
+En el simulador, el origen de coordenadas se encuentra en el centro del entorno, con el eje X apuntando hacia el frente del robot, el eje Y hacia su izquierda y el eje Z hacia arriba. Este sistema está desplazado respecto al mapa, que tiene el origen en la esquina superior izquierda, con el eje X apuntando hacia abajo y el eje Y hacia la derecha. Además, el simulador tiene dimensiones de 20.62 metros en el eje X y 13.6 metros en el eje Y, mientras que el mapa está compuesto por 415 píxeles de ancho y 279 píxeles de alto.
+
+Para realizar la transformación, es necesario tener en cuenta varios factores:
+
+1. **Escala**: La escala de conversión entre el simulador y el mapa se basa en las dimensiones de ambos sistemas. En el eje X, la escala es de 20.12 píxeles por metro, y en el eje Y es de 20.5 píxeles por metro. Estas escalas se utilizan para convertir las distancias en metros del simulador a unidades en píxeles en el mapa.
+
+2. **Rotación de 180°**: Hay una rotación de 180° entre ambos sistemas. El eje X del simulador se invierte en el mapa, mientras que el eje Y permanece en la misma dirección pero se ajusta a la escala de píxeles.
+
+3. **Translación**: El simulador tiene un desplazamiento respecto al mapa. El origen del simulador está ubicado a 6.964 metros en el eje X y 10.386 metros en el eje Y respecto al mapa.
+
+### Fórmulas de transformación
+
+Para transformar un punto del simulador \( (x_{\text{sim}}, y_{\text{sim}}) \) a las coordenadas del mapa \( (x_{\text{map}}, y_{\text{map}}) \), aplicamos las siguientes fórmulas:
+
+- Para la coordenada \( x_{\text{map}} \) en el mapa:
+
+```
+x_map = ((- (x_sim - 6.964) / 20.5) + 6.964) * 20.12
+```
+
+- Para la coordenada \( y_{\text{map}} \) en el mapa:
+
+```
+y_map = (10.386 - (y_sim - 13.6)) * 20.12
+```
+
+
+## Transformación del mapa al simulador
+
+La primera etapa del proyecto consiste en planificar la trayectoria que llevará al robot desde su posición inicial hasta el punto donde se encuentra el estante. Esta planificación requiere una comprensión precisa de cómo transformar las coordenadas del mapa, que se encuentran en un sistema bidimensional, al sistema de coordenadas tridimensional del simulador.
+
+En el simulador, el origen de coordenadas está en el centro del entorno, con el eje X apuntando hacia el frente del robot, el eje Y hacia su izquierda y el eje Z hacia arriba. Sin embargo, este sistema está desplazado respecto al mapa, que tiene el origen en la esquina superior izquierda. El mapa utiliza un sistema de coordenadas bidimensional donde el eje X apunta hacia abajo y el eje Y hacia la derecha. Además, las dimensiones del simulador son 20.62 metros en el eje X y 13.6 metros en el eje Y, mientras que el mapa tiene una resolución de 415 píxeles de ancho y 279 píxeles de alto.
+
+Para transformar las coordenadas del mapa a las del simulador, se debe tener en cuenta la rotación, la translación y la escala entre ambos sistemas. Las coordenadas \( (x, y) \) en el simulador se calculan a partir de las coordenadas x_map, y_map del mapa usando las siguientes fórmulas de transformación:
+
+- Para la coordenada \( x \) en el simulador:
+
+```
+x_sim = -((x_map - 207.5) / 20.12) + 6.964
+```
+
+- Para la coordenada \( y \) en el simulador:
+
+```
+y_sim = (139.5 - y_map) * 20.5 + 10.386
+```
+
+### OMPL
+
+OMPL (Open Motion Planning Library) es una biblioteca de código abierto diseñada para la planificación de trayectorias de robots y sistemas autónomos. Esta biblioteca proporciona una variedad de algoritmos que permiten generar trayectorias eficientes y libres de colisiones en espacios de alta dimensión. Entre estos algoritmos, destacan técnicas como RRT (Rapidly-exploring Random Trees) y sus variantes, las cuales se utilizan comúnmente en planificación de movimientos.
+
+Para la implementación en este proyecto, se ha optado por utilizar el planificador **A\*** (A-star). Este algoritmo de búsqueda es ampliamente utilizado para encontrar el camino más corto entre un punto de inicio y un objetivo en un espacio de búsqueda, lo que lo convierte en una opción adecuada para planificar trayectorias de robots en entornos complejos. A* se basa en una función de evaluación:
+
+
+```
+f(n) = g(n) + h(n)
+```
+
+Donde:
+
+- **g(n)** es el costo del camino desde el nodo inicial hasta el nodo `n`.
+- **h(n)** es una estimación (heurística) del costo para llegar desde el nodo `n` hasta el objetivo.
+
+
+Donde:
+
+- **g(n)** es el costo del camino desde el nodo inicial hasta el nodo `n`.
+- **h(n)** es la heurística, una estimación del costo para llegar desde el nodo `n` hasta el objetivo.
+
+
+En este proyecto, la implementación de OMPL se centra en la planificación de trayectorias para un robot en un mapa. Para ello, se define un **punto de origen** (con coordenadas \(x, y, \text{yaw}\)) y un **punto objetivo** con la misma estructura. Los diferentes estados evaluados por el planificador se verifican a través de la función **`isStateValid`**, que asegura que el estado del robot sea válido y libre de colisiones.
+
+#### Implementación con el Robot como un Punto
+
+En la **primera etapa**, modelamos al robot como un **punto** sin dimensiones, representando solo su ubicación en el espacio. Para evitar colisiones con los obstáculos, **engordamos el mapa** añadiendo un **grosor del tamaño del radio del robot**, más un pequeño **offset** adicional para crear un margen de seguridad.
+
+En la función **`isStateValid`**, verificamos que el **píxel central** del robot (en las coordenadas \(x, y\)) sea un píxel libre de obstáculos (blanco). Esto garantiza que el centro del robot esté en un área libre de colisiones y, por lo tanto, el estado es válido.
+
+#### Implementación con el Robot como una Geometría Cuadrada
+
+En la **segunda etapa**, tratamos al robot como una **geometría cuadrada**, con un tamaño que representa las dimensiones físicas del robot. Para evitar que el robot roce con los obstáculos, se incrementa ligeramente el tamaño de la geometría del robot, creando un margen de seguridad adicional.
+
+En esta implementación, la función **`isStateValid`** comprueba una **matriz de píxeles** centrada en la ubicación del robot, con un tamaño igual al del robot más el margen de seguridad. Se valida que todos los píxeles dentro de esta matriz sean blancos, lo que asegura que el área total ocupada por el robot esté libre de obstáculos. Si algún píxel dentro de esta área está ocupado por un obstáculo, el estado se considera inválido.
+
+#### Implementación del robot con el estante
+
+En esta última etapa, se incorpora la rotación del robot en la planificación de su trayectoria. A diferencia de las etapas anteriores, donde se consideraba al robot como un punto o un cuadrado, en este caso el robot se modela como un objeto rectangular, similar a un estante. Este cambio tiene en cuenta las dimensiones reales del robot y su orientación en el espacio, lo cual es importante para evitar colisiones.
+
+Para implementar esta solución, se utiliza el ángulo de yaw proporcionado por el planificador A* para calcular la orientación del robot. A partir de este ángulo, se genera una matriz de rotación que transforma las posiciones de las esquinas del rectángulo que representa al robot. Estas esquinas se desplazan según las coordenadas xx e yy determinadas por el planificador, lo que posiciona el robot en el mapa.
+
+Con las nuevas posiciones de las esquinas del robot, se genera un polígono que representa el área ocupada por el robot. Este polígono se dibuja en el mapa y se verifica si se superpone con obstáculos. Para hacer esto, se utiliza una máscara que cubre el área del robot y se compara con el mapa de obstáculos. Si alguna parte del polígono se encuentra en un área ocupada por obstáculos, el estado del robot se considera inválido.
+
+De esta manera, se asegura que no solo se eviten colisiones en el centro del robot, sino también en su contorno, considerando tanto el tamaño como la orientación del robot en el entorno. Esto permite una planificación más precisa y realista, ya que el robot se representa con sus dimensiones completas y su orientación exacta en el espacio.
+
+## Navigation
 
