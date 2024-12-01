@@ -184,9 +184,9 @@ Aquí dejo un vídeo del resultado final:
 
 # Amazon Warehouse
 
-El propósito de esta práctica es desarrollar la lógica de un robot logístico que permita realizar tareas esenciales dentro de un almacén automatizado. El robot deberá desplazarse hasta un estante específico, levantarlo, y transportarlo de manera eficiente hacia un punto objetivo en el mapa. Para lograrlo, cuenta con un mapa del entorno y es capaz de autolocalizarse con precisión en él. Este proyecto se divide en tres etapas principales: planificar el trayecto inicial hacia el estante, navegar hasta el destino siguiendo la trayectoria planeada, y finalmente planificar y ejecutar el trayecto de regreso con el estante en su poder.
+El propósito de esta práctica es desarrollar la lógica de un robot logístico que permita realizar tareas esenciales dentro de un almacén automatizado. El robot deberá desplazarse hasta un estante específico, levantarlo, y transportarlo de manera eficiente hacia un punto objetivo en el mapa. Para lograrlo, cuenta con un mapa del entorno y es capaz de autolocalizarse con precisión en él. Este proyecto se divide en tres etapas principales: crear el plan y navegar.
 
-## Plan de ida
+## Plan
 
 ### Transformación de coordenadas del simulador al mapa
 
@@ -262,7 +262,7 @@ Donde:
 - **h(n)** es la heurística, una estimación del costo para llegar desde el nodo `n` hasta el objetivo.
 
 
-En este proyecto, la implementación de OMPL se centra en la planificación de trayectorias para un robot en un mapa. Para ello, se define un **punto de origen** (con coordenadas \(x, y, \text{yaw}\)) y un **punto objetivo** con la misma estructura. Los diferentes estados evaluados por el planificador se verifican a través de la función **`isStateValid`**, que asegura que el estado del robot sea válido y libre de colisiones.
+En este proyecto, la implementación de OMPL se centra en la planificación de trayectorias para un robot en un mapa. Para ello, se define un **punto de origen** (con coordenadas \(x, y, \text{yaw}\)) y un **punto objetivo** con la misma estructura. Los diferentes estados evaluados por el planificador se verifican a través de la función **`isStateValid`**, que asegura que el estado del robot sea válido y libre de colisiones. Luego, si se genera un plan, la función **`plan`** devuelve un array de puntos a seguir. Este plan generado no siempre llega al target, por lo cual, se calcula la distancia entre el punto final del path y el punto target, si la distancia es menor a 1 pixel, se da por bueno, si no, se replanifica.
 
 #### Implementación con el Robot como un Punto
 
@@ -286,5 +286,15 @@ Con las nuevas posiciones de las esquinas del robot, se genera un polígono que 
 
 De esta manera, se asegura que no solo se eviten colisiones en el centro del robot, sino también en su contorno, considerando tanto el tamaño como la orientación del robot en el entorno. Esto permite una planificación más precisa y realista, ya que el robot se representa con sus dimensiones completas y su orientación exacta en el espacio.
 
+
 ## Navigation
+
+En la fase de navegación, el robot sigue los puntos generados previamente durante la planificación de la trayectoria. Estos puntos, que fueron calculados en el espacio de trabajo del mapa, se transforman a las coordenadas del simulador, permitiendo que el robot se desplace dentro del entorno simulado. La transición entre estos puntos se realiza mediante un ciclo iterativo, donde el robot se dirige de uno a otro, ajustando su trayectoria según su posición actual.
+
+Para asegurarse de que el robot está lo suficientemente cerca de un punto de destino, se calcula la distancia entre su posición actual y el objetivo utilizando la fórmula de distancia euclidiana. Si esta distancia es menor que un umbral predefinido, el robot considera que ha llegado al punto y procede al siguiente. Si la distancia es mayor que el umbral, el robot sigue ajustando su trayectoria hasta acercarse lo suficiente al objetivo.
+
+Para controlar el movimiento del robot, se implementan dos controladores proporcionales: uno para la velocidad lineal y otro para la velocidad angular. El controlador de velocidad lineal ajusta la rapidez con la que el robot se mueve hacia el objetivo, basándose en el error de distancia entre la posición actual y el destino. El controlador de velocidad angular se encarga de alinear el robot con la dirección correcta, tomando en cuenta la diferencia entre el ángulo de orientación del robot y el ángulo hacia el objetivo. Ambos controladores ajustan las velocidades en función de los errores, permitiendo que el robot navegue de manera fluida y precisa hacia su destino.
+
+Este enfoque permite que el robot siga una ruta de manera efectiva, ajustándose dinámicamente a las variaciones de su entorno mientras minimiza el error de posición y orientación a lo largo del camino.
+
 
