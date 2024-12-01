@@ -301,4 +301,8 @@ Este enfoque permite que el robot siga una ruta de manera efectiva, ajustándose
 
 [Screencast from 2024-12-01 20-49-21.webm](https://github.com/user-attachments/assets/176a6a44-1081-46ac-94e2-b5ade2fc6485)
 
+[Screencast from 2024-12-01 22-52-26.webm](https://github.com/user-attachments/assets/b6dd4b51-fef7-4c0e-b180-a12b5c01a3ae)
+
+
+
 
