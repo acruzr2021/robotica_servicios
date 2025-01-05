@@ -308,20 +308,41 @@ Este enfoque permite que el robot siga una ruta de manera efectiva, ajustándose
 
 # Marker Visual Localization
 
-Esta última práctica trata de programar un robot doméstico para que, mediante el uso de la cámara que tiene integrada, pueda autolocalizarse con la detección de diversas balizas colocadas por el entorno. Este debe localizarse mientras navega por la casa.
+Esta práctica final consiste en programar un robot doméstico para que, mediante el uso de su cámara integrada, pueda autolocalizarse detectando diversas balizas distribuidas en el entorno. El robot debe localizarse mientras navega por la casa.
 
 ## Autolocalización
 
-Para la autolocalización, usamos balizas de la librería AprilTags, que son códigos en blanco y negro con un patron de cuadrados único y tamaño fijo, los cuales están registrados con id y coordenadas propio, que usaremos para estimar las diferentes matrices de transformación con objetivo de sacar la posición del robot en el mundo de gazebo.
+Para la autolocalización, utilizamos balizas de la librería **AprilTags**, que son códigos en blanco y negro con un patrón único de cuadrados y tamaño fijo. Estas balizas están registradas con un identificador (ID) y coordenadas propias, las cuales utilizaremos para calcular diferentes matrices de transformación y estimar la posición del robot en el mundo simulado de **Gazebo**.
 
-Para sacar la posición absoluta del robot, necesitaremos la matriz world2cam, que es el resultado de multiplicar la matriz de transformación world2bal y la matriz bal2cam
+Para obtener la posición absoluta del robot, necesitamos la matriz `world2cam`, que se calcula multiplicando las matrices de transformación `world2bal` y `bal2cam`.
 
 ### Matriz world2bal
 
-Para sacar la matriz de transformación world2bal, mediante el id de la baliza, sacaremos la posición asociada a esta. Inializaremos una matriz 4x4, donde las primeras 3 filas y columnas corresponderán a una matriz de rotación respecto al eje z del ángulo asociado a la baliza. La última columna corresponde a la posición x, y, z de la baliza, siendo z el valor 0.8 cte.
-
+La matriz de transformación `world2bal` se calcula utilizando el ID de la baliza detectada para acceder a su posición y orientación asociadas. Inicializamos una matriz \( 4 \times 4 \), donde las primeras tres filas y columnas corresponden a una matriz de rotación respecto al eje \( z \), basada en el ángulo asociado a la baliza. La última columna incluye las posiciones \( x \), \( y \), y \( z \), siendo \( z \) un valor constante de **0.8**.
 
 ### Matriz bal2cam
+
+Para calcular esta matriz, primero detectamos las esquinas de la baliza en la imagen capturada. Usamos la función `solvePnP` de OpenCV con el flag `SOLVEPNP_IPPE_SQUARE` para obtener los vectores de rotación (\( rvec \)) y traslación (\( tvec \)). Es fundamental usar los puntos de referencia según la documentación de OpenCV. A continuación, creamos una matriz \( 4 \times 4 \) llamada `cam2bal`. Convertimos el vector de rotación (\( rvec \)) en una matriz \( 3 \times 3 \) usando la función `Rodrigues` de OpenCV. Esta matriz corresponde a las primeras tres filas y columnas de `cam2bal`, mientras que el vector de traslación (\( tvec \)) se ubica en las primeras filas de la última columna.
+
+Como necesitamos la matriz `bal2cam`, invertimos `cam2bal` y aplicamos rotaciones de \(-90^\circ\) en \( z \) y \(-90^\circ\) en \( x \), en ese orden. Esto se debe a que los sistemas de coordenadas de OpenCV y Gazebo son diferentes. En OpenCV, el eje \( x \) apunta a la derecha y el eje \( y \) hacia abajo, mientras que en Gazebo, el eje \( x \) apunta a la derecha, el eje \( y \) hacia adelante, y el eje \( z \) hacia arriba. Tras estos ajustes, obtenemos la matriz `bal2cam`.
+
+### Matriz world2cam y posición estimada
+
+La matriz `world2cam` se obtiene al multiplicar las matrices `world2bal` y `bal2cam`. Para determinar la posición estimada del robot, extraemos las coordenadas \( x \) y \( y \) de las dos primeras componentes de la última columna de `world2cam`. El ángulo de orientación se calcula a partir de la matriz de rotación, que corresponde a las primeras \( 3 \times 3 \) componentes de `world2cam`.
+
+Para calcular el ángulo de orientación, utilizamos las siguientes fórmulas para el **theta** y el **yaw**:
+
+$$
+\theta = \arctan2\left(-R_{2,0}, \sqrt{R_{0,0}^2 + R_{1,0}^2}\right)
+$$
+
+$$
+yaw = \arctan2\left(\frac{R_{1,0}}{\cos(\theta)}, \frac{R_{0,0}}{\cos(\theta)}\right) + \frac{\pi}{2}
+$$
+
+En estas fórmulas, \( R \) representa la matriz de rotación obtenida de `world2cam`, y \( R_{i,j} \) corresponde a los elementos individuales de esta matriz. Es necesario sumar \( +\pi/2 \) al valor de **yaw** debido a un desfase entre el ángulo calculado y el ángulo real.
+
+Con estas transformaciones y cálculos, logramos determinar la posición y orientación estimada del robot en el mundo simulado.
 
 
 
