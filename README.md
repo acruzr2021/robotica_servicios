@@ -7,6 +7,7 @@
 * [Rescue People](#Rescue-people)
 * [P3]
 * [Amazon Warehouse](#Amazon-warehouse)
+* [Marker Visual Localization](#Marker-visual-localization)
 
 
 
@@ -302,6 +303,32 @@ Este enfoque permite que el robot siga una ruta de manera efectiva, ajustándose
 [Screencast from 2024-12-01 20-49-21.webm](https://github.com/user-attachments/assets/176a6a44-1081-46ac-94e2-b5ade2fc6485)
 
 [Screencast from 2024-12-01 22-52-26.webm](https://github.com/user-attachments/assets/b6dd4b51-fef7-4c0e-b180-a12b5c01a3ae)
+
+---
+
+# Marker Visual Localization
+
+Esta última práctica trata de programar un robot doméstico para que, mediante el uso de la cámara que tiene integrada, pueda autolocalizarse con la detección de diversas balizas colocadas por el entorno. Este debe localizarse mientras navega por la casa.
+
+## Autolocalización
+
+Para la autolocalización, usamos balizas de la librería AprilTags, que son códigos en blanco y negro con un patron de cuadrados único y tamaño fijo, los cuales están registrados con id y coordenadas propio, que usaremos para estimar las diferentes matrices de transformación con objetivo de sacar la posición del robot en el mundo de gazebo.
+
+Para sacar la posición absoluta del robot, necesitaremos la matriz world2cam, que es el resultado de multiplicar la matriz de transformación world2bal y la matriz bal2cam
+
+### Matriz world2bal
+
+Para sacar la matriz de transformación world2bal, mediante el id de la baliza, sacaremos la posición asociada a esta. Inializaremos una matriz 4x4, donde las primeras 3 filas y columnas corresponderán a una matriz de rotación respecto al eje z del ángulo asociado a la baliza. La última columna corresponde a la posición x, y, z de la baliza, siendo z el valor 0.8 cte.
+
+
+### Matriz bal2cam
+
+
+
+## Navegación
+
+
+## Resultado
 
 
 
