@@ -344,10 +344,17 @@ En estas fórmulas, \( R \) representa la matriz de rotación obtenida de `world
 
 Con estas transformaciones y cálculos, logramos determinar la posición y orientación estimada del robot en el mundo simulado.
 
-
+Cuando la baliza no es visible, recurro a la posición dada por la odometría para la estimación del robot.
 
 ## Navegación
 
+La navegación del robot se implementa mediante una máquina de estados que opera de forma pseudoaleatoria. El sistema consta de tres estados principales: **Forward**, **Back**, y **Turn**.
+
+Dado que el robot no dispone de sensores de proximidad como bumpers o láseres, se asume que ha colisionado con un obstáculo si, tras un tiempo determinado, la distancia recorrida no supera un umbral definido. En este caso, el robot pasa del estado **Forward** al estado **Back**.
+
+En el estado **Back**, el robot retrocede durante 2 segundos para alejarse del posible obstáculo. A continuación, entra en el estado **Turn**, donde realiza un giro a una velocidad angular aleatoria seleccionada entre 0.45 y 1. Este giro se mantiene durante 5 segundos, después de lo cual el robot vuelve al estado **Forward** y reanuda su movimiento hacia adelante.
+
+Esta lógica permite al robot navegar de forma reactiva y adaptarse dinámicamente a su entorno, aunque no disponga de sensores de proximidad tradicionales.
 
 ## Resultado
 
