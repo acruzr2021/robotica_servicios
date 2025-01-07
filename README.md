@@ -358,6 +358,12 @@ Esta lógica permite al robot navegar de forma reactiva y adaptarse dinámicamen
 
 ## Resultado
 
+[![image](https://github.com/user-attachments/assets/b1017c72-da55-4a47-afae-185ea37795bf)](https://youtu.be/FuojGCd9sYs)
+
+[![image](https://github.com/user-attachments/assets/b1017c72-da55-4a47-afae-185ea37795bf)](https://youtu.be/rSkwMMfka-A)
+
+En este último video podemos observar que este método de localización, cuando la baliza está a más de 4 metros de distancia, empieza a tener errores en las estimaciones.
+
 
 
 
