@@ -1,5 +1,3 @@
-
-https://github.com/user-attachments/assets/510c72fd-420f-430f-9308-790b7f9f8e35
 # ROBÓTICA DE SERVICIOS
 
 # Indice
