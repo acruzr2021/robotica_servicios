@@ -181,7 +181,7 @@ Aquí dejo un vídeo del resultado final:
 [![image](https://github.com/user-attachments/assets/bbe26884-b7a4-4321-884e-ce01a3edfc0a)](https://www.youtube.com/watch?v=JgU8OZh0u5E)
 
 
-# **Práctica P3: AutoParking**
+# AutoParking
 
 En esta práctica, desarrollamos un sistema autónomo de estacionamiento para un robot móvil. El objetivo principal es que el robot sea capaz de identificar un espacio disponible utilizando un sensor láser, alinearse correctamente con él y ejecutar maniobras para estacionarse de forma eficiente.
 
