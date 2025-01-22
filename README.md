@@ -1,3 +1,5 @@
+
+https://github.com/user-attachments/assets/510c72fd-420f-430f-9308-790b7f9f8e35
 # ROBÓTICA DE SERVICIOS
 
 # Indice
@@ -220,6 +222,23 @@ Para garantizar que el robot pueda maniobrar correctamente, es necesario que est
 Una vez alineado y posicionado cerca del hueco, el robot inicia la maniobra de estacionamiento. Este proceso incluye un retroceso inicial hacia el hueco con un giro controlado, seguido de un ajuste de orientación y un último movimiento para centrar al robot dentro del espacio. Las maniobras se controlan en función de un temporizador y un contador que definen cada etapa del estacionamiento.
 
 ## Resultado final
+
+Caso típico (entre dos coches alineado):
+
+[video](https://github.com/user-attachments/assets/dba1e4f1-158d-45e6-a02f-e1420dea105d)
+
+Caso entre dos coches inclinado:
+
+[video](https://github.com/user-attachments/assets/19ce6d29-d4db-4fee-99a0-123787a40e08)
+
+Caso aparcamiento detrás de coche de referencia:
+
+[video](https://github.com/user-attachments/assets/e5094ff9-247c-4841-af5a-492144784617)
+
+Caso aparcamiento delante de coche:
+
+[video](https://github.com/user-attachments/assets/23eeb53b-c093-4e72-bfad-8a36e1d43f66)
+
 
 ---
 
