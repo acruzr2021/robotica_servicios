@@ -187,14 +187,14 @@ En esta práctica, desarrollamos un sistema autónomo de estacionamiento para un
 
 ---
 
-## **Objetivos**
+## Objetivos
 El propósito de esta práctica es dotar al robot de la capacidad de estacionarse de forma autónoma. Esto implica tres tareas: detectar un hueco adecuado, alinear el robot con los límites del espacio y realizar las maniobras necesarias para estacionarse sin colisionar. El éxito del proyecto depende de la correcta integración de sensores y algoritmos de control.
 
 ---
 
-## **Desarrollo**
+## Desarrollo
 
-### **Percepción del Entorno**
+### Percepción del Entorno
 Para detectar el hueco donde se estacionará, el robot utiliza tres sensores láser, frontal, lateral y trasero, que proporcionan distancias en un rango de 180 grados. Estos datos se procesan para determinar si un punto del entorno está dentro de los límites predefinidos del espacio de estacionamiento. Los límites del hueco se establecen mediante coordenadas cartesianas y se comprueban con una función que evalúa si un punto pertenece al área.
 
 ```python
@@ -218,6 +218,8 @@ Para garantizar que el robot pueda maniobrar correctamente, es necesario que est
 ### Maniobra de estacionamiento
 
 Una vez alineado y posicionado cerca del hueco, el robot inicia la maniobra de estacionamiento. Este proceso incluye un retroceso inicial hacia el hueco con un giro controlado, seguido de un ajuste de orientación y un último movimiento para centrar al robot dentro del espacio. Las maniobras se controlan en función de un temporizador y un contador que definen cada etapa del estacionamiento.
+
+## Resultado final
 
 ---
 
