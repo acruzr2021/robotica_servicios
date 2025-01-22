@@ -5,7 +5,7 @@
 * [Welcome][wel]
 * [Localized Vacuum Cleaner][p1]
 * [Rescue People](#Rescue-people)
-* [P3]
+* [Autoparking](#Autoparking)
 * [Amazon Warehouse](#Amazon-warehouse)
 * [Marker Visual Localization](#Marker-visual-localization)
 
@@ -181,7 +181,45 @@ Aquí dejo un vídeo del resultado final:
 [![image](https://github.com/user-attachments/assets/bbe26884-b7a4-4321-884e-ce01a3edfc0a)](https://www.youtube.com/watch?v=JgU8OZh0u5E)
 
 
-# P3
+# **Práctica P3: AutoParking**
+
+En esta práctica, desarrollamos un sistema autónomo de estacionamiento para un robot móvil. El objetivo principal es que el robot sea capaz de identificar un espacio disponible utilizando un sensor láser, alinearse correctamente con él y ejecutar maniobras para estacionarse de forma eficiente.
+
+---
+
+## **Objetivos**
+El propósito de esta práctica es dotar al robot de la capacidad de estacionarse de forma autónoma. Esto implica tres tareas: detectar un hueco adecuado, alinear el robot con los límites del espacio y realizar las maniobras necesarias para estacionarse sin colisionar. El éxito del proyecto depende de la correcta integración de sensores y algoritmos de control.
+
+---
+
+## **Desarrollo**
+
+### **Percepción del Entorno**
+Para detectar el hueco donde se estacionará, el robot utiliza tres sensores láser, frontal, lateral y trasero, que proporcionan distancias en un rango de 180 grados. Estos datos se procesan para determinar si un punto del entorno está dentro de los límites predefinidos del espacio de estacionamiento. Los límites del hueco se establecen mediante coordenadas cartesianas y se comprueban con una función que evalúa si un punto pertenece al área.
+
+```python
+rectangle_limits = {
+    "x_min": 0.5,
+    "x_max": 3.5 + GAP_WIDTH,
+    "y_min": -5 - GAP_LENGTH,
+    "y_max": -5
+}
+
+def point_inside_rectangle(x, y, limits):
+    return limits["x_min"] <= x <= limits["x_max"] and limits["y_min"] <= y <= limits["y_max"]
+```
+
+Si se detectara que hay un solo pixel ocupado en ese hueco, no se consideraría apto para aparcar.
+
+### Alineación con el hueco
+
+Para garantizar que el robot pueda maniobrar correctamente, es necesario que esté alineado con los bordes del espacio detectado. Esto se logra mediante el cálculo de la pendiente entre los puntos obtenidos por el sensor láser. Si el robot no está alineado, ajusta su orientación mediante rotaciones controladas y pequeños movimientos hacia adelante. Este proceso de alineación es crucial para preparar al robot antes de iniciar la maniobra de estacionamiento.
+
+### Maniobra de estacionamiento
+
+Una vez alineado y posicionado cerca del hueco, el robot inicia la maniobra de estacionamiento. Este proceso incluye un retroceso inicial hacia el hueco con un giro controlado, seguido de un ajuste de orientación y un último movimiento para centrar al robot dentro del espacio. Las maniobras se controlan en función de un temporizador y un contador que definen cada etapa del estacionamiento.
+
+---
 
 # Amazon Warehouse
 
